@@ -1,0 +1,39 @@
+@layer utilities {
+  .container {
+    @apply lg:max-w-[75vw] max-w-none px-4 mx-auto;
+  }
+
+  header:has(+ main [data-slide='dark']._active) {
+    color: var(--color-white) !important;
+  }
+
+  .menu-item-active {
+    text-decoration: underline;
+    text-underline-offset: 8px;
+  }
+
+  .swiper-slide-thumb-active {
+    &::before {
+      @apply bg-white/0;
+    }
+  }
+
+  [data-swipe-left] {
+    cursor:
+      url('/svg/arrow-left.svg') 16 16,
+      auto;
+  }
+  [data-swipe-right] {
+    cursor:
+      url('/svg/arrow-right.svg') 16 16,
+      auto;
+  }
+  [data-swipe-left],
+  [data-swipe-right] {
+    &:is(.swiper-button-disabled) {
+      cursor:
+        url('/svg/x.svg') 16 16,
+        auto;
+    }
+  }
+}
