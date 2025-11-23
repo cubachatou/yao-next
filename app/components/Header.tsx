@@ -12,10 +12,10 @@ export default function Header() {
 
   const renderCenter = () => {
     if (isHome) {
-      return (
-        <Link href="/" className="inline-flex w-[clamp(5rem,-6.429rem+17.857vw,15rem)] h-auto">
-          <Logo />
-        </Link>
+      return (<></>
+        // <Link href="/" className="inline-flex w-[clamp(5rem,-6.429rem+17.857vw,15rem)] h-auto">
+        //   <Logo />
+        // </Link>
       );
     }
 

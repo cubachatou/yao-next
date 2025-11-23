@@ -196,33 +196,39 @@ export const SLIDER_CONFIG = {
 
 import img1_1 from '@works/work-2/2.jpg';
 import img2_1 from '@works/work-5/1.jpg';
-import img3_1 from '@works/work-6/2.jpg';
-import img4_1 from '@works/work-7/2.jpg';
-import img5_1 from '@works/work-8/1.jpg';
-import img6_1 from '@works/work-9/3.jpg';
+import img3_1 from '@works/work-7/2.jpg';
+import img4_1 from '@works/work-8/1.jpg';
+import img5_1 from '@works/work-9/1.jpg';
+import img6_1 from '@works/work-1/6.jpg';
 export const slides = [
   {
     title: 'Ethereal Glow',
     media: img1_1.src,
+    objectPosition: { y: 0.55 },
   },
   {
     title: 'Rose Mirage',
     media: img2_1.src,
+    objectPosition: { y: 0.7 },
   },
   {
     title: 'Velvet Mystique',
     media: img3_1.src,
+    objectPosition: { y: 0.55 },
   },
   {
     title: 'Golden Hour',
     media: img4_1.src,
+    objectPosition: { y: 0.45 },
   },
   {
     title: 'Midnight Dreams',
     media: img5_1.src,
+    objectPosition: { y: 0.8 },
   },
   {
     title: 'Silver Light',
     media: img6_1.src,
+    objectPosition: { y: 0.75 },
   },
 ];

@@ -59,6 +59,8 @@ export function SliderContent({ currentSlide, isTransitioning, onTransitionCompl
         uResolution: { value: new THREE.Vector2(size.width, size.height) },
         uTexture1Size: { value: new THREE.Vector2(1, 1) },
         uTexture2Size: { value: new THREE.Vector2(1, 1) },
+        uObjectPosition1: { value: new THREE.Vector2(0.5, 0.5) },
+        uObjectPosition2: { value: new THREE.Vector2(0.5, 0.5) },
         uEffectType: {
             value: {
                 glass: 0,
@@ -113,10 +115,17 @@ export function SliderContent({ currentSlide, isTransitioning, onTransitionCompl
 
         // If it's the first load (prev == current), just set the texture
         if (prevSlideRef.current === currentSlide && !isTransitioning) {
+            const slide = slides[currentSlide];
+            const pos = slide.objectPosition || { y: 0.5 };
+            
             materialRef.current.uniforms.uTexture1.value = textures[currentSlide];
             materialRef.current.uniforms.uTexture1Size.value = textures[currentSlide].userData.size;
+            materialRef.current.uniforms.uObjectPosition1.value.set(0.5, pos.y);
+            
             materialRef.current.uniforms.uTexture2.value = textures[currentSlide]; // Just to be safe
             materialRef.current.uniforms.uTexture2Size.value = textures[currentSlide].userData.size;
+            materialRef.current.uniforms.uObjectPosition2.value.set(0.5, pos.y);
+            
             materialRef.current.uniforms.uProgress.value = 0;
             return;
         }
@@ -124,11 +133,20 @@ export function SliderContent({ currentSlide, isTransitioning, onTransitionCompl
         if (isTransitioning) {
             const prevTexture = textures[prevSlideRef.current];
             const nextTexture = textures[currentSlide];
+            const prevSlide = slides[prevSlideRef.current];
+            const nextSlide = slides[currentSlide];
+            
+            const prevPos = prevSlide.objectPosition || { y: 0.5 };
+            const nextPos = nextSlide.objectPosition || { y: 0.5 };
 
             materialRef.current.uniforms.uTexture1.value = prevTexture;
             materialRef.current.uniforms.uTexture1Size.value = prevTexture.userData.size;
+            materialRef.current.uniforms.uObjectPosition1.value.set(0.5, prevPos.y);
+            
             materialRef.current.uniforms.uTexture2.value = nextTexture;
             materialRef.current.uniforms.uTexture2Size.value = nextTexture.userData.size;
+            materialRef.current.uniforms.uObjectPosition2.value.set(0.5, nextPos.y);
+            
             materialRef.current.uniforms.uProgress.value = 0;
 
             gsap.fromTo(
@@ -143,6 +161,7 @@ export function SliderContent({ currentSlide, isTransitioning, onTransitionCompl
                             materialRef.current.uniforms.uProgress.value = 0;
                             materialRef.current.uniforms.uTexture1.value = nextTexture;
                             materialRef.current.uniforms.uTexture1Size.value = nextTexture.userData.size;
+                            materialRef.current.uniforms.uObjectPosition1.value.set(0.5, nextPos.y);
                         }
                         prevSlideRef.current = currentSlide;
                         onTransitionComplete();

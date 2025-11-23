@@ -13,6 +13,8 @@ export const fragmentShader = `
   uniform vec2 uResolution;
   uniform vec2 uTexture1Size;
   uniform vec2 uTexture2Size;
+  uniform vec2 uObjectPosition1;
+  uniform vec2 uObjectPosition2;
   uniform int uEffectType;
   
   // Global settings uniforms
@@ -58,11 +60,11 @@ export const fragmentShader = `
   
   varying vec2 vUv;
 
-  vec2 getCoverUV(vec2 uv, vec2 textureSize) {
+  vec2 getCoverUV(vec2 uv, vec2 textureSize, vec2 objectPosition) {
     vec2 s = uResolution / textureSize;
     float scale = max(s.x, s.y);
     vec2 scaledSize = textureSize * scale;
-    vec2 offset = (uResolution - scaledSize) * 0.5;
+    vec2 offset = (uResolution - scaledSize) * objectPosition;
     return (uv * uResolution - offset) / scaledSize;
   }
 
@@ -106,8 +108,8 @@ export const fragmentShader = `
     vec2 center = vec2(0.5, 0.5);
     vec2 p = uv * uResolution;
     
-    vec2 uv1 = getCoverUV(uv, uTexture1Size);
-    vec2 uv2_base = getCoverUV(uv, uTexture2Size);
+    vec2 uv1 = getCoverUV(uv, uTexture1Size, uObjectPosition1);
+    vec2 uv2_base = getCoverUV(uv, uTexture2Size, uObjectPosition2);
     
     float maxRadius = length(uResolution) * 0.85;
     // FIX: Start completely off-screen at progress 0
@@ -190,8 +192,8 @@ export const fragmentShader = `
   }
 
   vec4 frostEffect(vec2 uv, float progress) {
-    vec4 currentImg = texture2D(uTexture1, getCoverUV(uv, uTexture1Size));
-    vec4 newImg = texture2D(uTexture2, getCoverUV(uv, uTexture2Size));
+    vec4 currentImg = texture2D(uTexture1, getCoverUV(uv, uTexture1Size, uObjectPosition1));
+    vec4 newImg = texture2D(uTexture2, getCoverUV(uv, uTexture2Size, uObjectPosition2));
     
     float effectiveIntensity = uFrostIntensity * uGlobalIntensity;
     float crystalScale = 80.0 / uFrostCrystalSize;
@@ -225,7 +227,7 @@ export const fragmentShader = `
     rnd *= frost * vignette * frostyness * (1.0 - floor(vignette));
     
     vec4 regular = newImg;
-    vec4 frozen = texture2D(uTexture2, getCoverUV(uv + rnd * 0.06, uTexture2Size));
+    vec4 frozen = texture2D(uTexture2, getCoverUV(uv + rnd * 0.06, uTexture2Size, uObjectPosition2));
     
     // Temperature-based color shift (clamped to prevent extreme values)
     float tempShift = clamp(temperatureEffect * 0.15, 0.0, 0.3);
@@ -263,8 +265,8 @@ export const fragmentShader = `
   }
 
   vec4 rippleEffect(vec2 uv, float progress) {
-    vec4 currentImg = texture2D(uTexture1, getCoverUV(uv, uTexture1Size));
-    vec4 newImg = texture2D(uTexture2, getCoverUV(uv, uTexture2Size));
+    vec4 currentImg = texture2D(uTexture1, getCoverUV(uv, uTexture1Size, uObjectPosition1));
+    vec4 newImg = texture2D(uTexture2, getCoverUV(uv, uTexture2Size, uObjectPosition2));
     
     vec2 center = vec2(0.5, 0.5);
     float dist = distance(uv, center);
@@ -285,7 +287,7 @@ export const fragmentShader = `
     float combinedRipple = (ripple1 + ripple2 + ripple3) * effectiveAmplitude;
     
     vec2 normal = normalize(uv - center);
-    vec2 distortedUV = getCoverUV(uv + normal * combinedRipple, uTexture2Size);
+    vec2 distortedUV = getCoverUV(uv + normal * combinedRipple, uTexture2Size, uObjectPosition2);
     
     vec4 distortedImg = texture2D(uTexture2, distortedUV);
     
@@ -303,8 +305,8 @@ export const fragmentShader = `
   }
 
   vec4 plasmaEffect(vec2 uv, float progress) {
-    vec4 currentImg = texture2D(uTexture1, getCoverUV(uv, uTexture1Size));
-    vec4 newImg = texture2D(uTexture2, getCoverUV(uv, uTexture2Size));
+    vec4 currentImg = texture2D(uTexture1, getCoverUV(uv, uTexture1Size, uObjectPosition1));
+    vec4 newImg = texture2D(uTexture2, getCoverUV(uv, uTexture2Size, uObjectPosition2));
     
     float effectiveSpeed = uPlasmaSpeed * uSpeedMultiplier;
     float effectiveIntensity = uPlasmaIntensity * uGlobalIntensity;
@@ -345,8 +347,8 @@ export const fragmentShader = `
     
     vec2 totalDistortion = electricField + flowField1 + flowField2;
     
-    vec2 distortedUV1 = getCoverUV(uv + totalDistortion, uTexture1Size);
-    vec2 distortedUV2 = getCoverUV(uv + totalDistortion, uTexture2Size);
+    vec2 distortedUV1 = getCoverUV(uv + totalDistortion, uTexture1Size, uObjectPosition1);
+    vec2 distortedUV2 = getCoverUV(uv + totalDistortion, uTexture2Size, uObjectPosition2);
     
     vec4 distortedCurrentImg = texture2D(uTexture1, distortedUV1);
     vec4 distortedNewImg = texture2D(uTexture2, distortedUV2);
@@ -392,8 +394,8 @@ export const fragmentShader = `
 
   vec4 timeshiftEffect(vec2 uv, float progress) {
     // Get base images
-    vec2 uv1 = getCoverUV(uv, uTexture1Size);
-    vec2 uv2_base = getCoverUV(uv, uTexture2Size);
+    vec2 uv1 = getCoverUV(uv, uTexture1Size, uObjectPosition1);
+    vec2 uv2_base = getCoverUV(uv, uTexture2Size, uObjectPosition2);
     vec4 currentImg = texture2D(uTexture1, uv1);
     vec4 newImg = texture2D(uTexture2, uv2_base);
     
@@ -462,8 +464,8 @@ export const fragmentShader = `
       displacement += perpendicular * swirl * boundaryStrength;
       
       // Sample both images with heavy distortion
-      vec2 distortedUV1 = getCoverUV(uv + displacement, uTexture1Size);
-      vec2 distortedUV2 = getCoverUV(uv + displacement, uTexture2Size);
+      vec2 distortedUV1 = getCoverUV(uv + displacement, uTexture1Size, uObjectPosition1);
+      vec2 distortedUV2 = getCoverUV(uv + displacement, uTexture2Size, uObjectPosition2);
       
       vec4 distortedOld = texture2D(uTexture1, distortedUV1);
       vec4 distortedNew = texture2D(uTexture2, distortedUV2);
@@ -473,8 +475,8 @@ export const fragmentShader = `
         float chromaticStr = boundaryStrength * 0.03 * effectiveChromatic;
         
         // Old image chromatic
-        vec2 uv1_r = getCoverUV(uv + displacement + direction * chromaticStr * 2.0, uTexture1Size);
-        vec2 uv1_b = getCoverUV(uv + displacement - direction * chromaticStr * 1.2, uTexture1Size);
+        vec2 uv1_r = getCoverUV(uv + displacement + direction * chromaticStr * 2.0, uTexture1Size, uObjectPosition1);
+        vec2 uv1_b = getCoverUV(uv + displacement - direction * chromaticStr * 1.2, uTexture1Size, uObjectPosition1);
         distortedOld = vec4(
           texture2D(uTexture1, uv1_r).r,
           distortedOld.g,
@@ -483,8 +485,8 @@ export const fragmentShader = `
         );
         
         // New image chromatic
-        vec2 uv2_r = getCoverUV(uv + displacement + direction * chromaticStr * 2.0, uTexture2Size);
-        vec2 uv2_b = getCoverUV(uv + displacement - direction * chromaticStr * 1.2, uTexture2Size);
+        vec2 uv2_r = getCoverUV(uv + displacement + direction * chromaticStr * 2.0, uTexture2Size, uObjectPosition2);
+        vec2 uv2_b = getCoverUV(uv + displacement - direction * chromaticStr * 1.2, uTexture2Size, uObjectPosition2);
         distortedNew = vec4(
           texture2D(uTexture2, uv2_r).r,
           distortedNew.g,
@@ -498,9 +500,9 @@ export const fragmentShader = `
       
       // ENHANCED dreamy blur effect
       if (effectiveBlur > 0.5) {
-        vec4 blurSample1 = texture2D(uTexture2, getCoverUV(uv + displacement + turbulence * 0.015, uTexture2Size));
-        vec4 blurSample2 = texture2D(uTexture2, getCoverUV(uv + displacement - turbulence * 0.015, uTexture2Size));
-        vec4 blurSample3 = texture2D(uTexture1, getCoverUV(uv + displacement + vec2(turbulence.y, -turbulence.x) * 0.015, uTexture1Size));
+        vec4 blurSample1 = texture2D(uTexture2, getCoverUV(uv + displacement + turbulence * 0.015, uTexture2Size, uObjectPosition2));
+        vec4 blurSample2 = texture2D(uTexture2, getCoverUV(uv + displacement - turbulence * 0.015, uTexture2Size, uObjectPosition2));
+        vec4 blurSample3 = texture2D(uTexture1, getCoverUV(uv + displacement + vec2(turbulence.y, -turbulence.x) * 0.015, uTexture1Size, uObjectPosition1));
         
         float blurAmount = boundaryStrength * effectiveBlur * 0.6;
         finalColor = mix(finalColor, (finalColor + blurSample1 + blurSample2 + blurSample3) * 0.25, blurAmount);
