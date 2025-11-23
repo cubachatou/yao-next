@@ -37,7 +37,7 @@ export default function Header() {
   };
 
   return (
-    <header className="flex items-center px-8 py-5 text-black">
+    <header className={`flex items-center px-8 py-5 relative z-10 ${isHome ? 'text-white' : 'text-black'}`}>
       <nav className="w-full font-medium uppercase">
         <ul className="flex items-start justify-between gap-8">
           <li>{isHome ? <Link href="/works">Works</Link> : <Link href="/">Home</Link>}</li>

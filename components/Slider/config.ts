@@ -1,9 +1,4 @@
-'use client';
-
-import * as THREE from 'three';
-import { Pane } from 'tweakpane';
-
-const SLIDER_CONFIG = {
+export const SLIDER_CONFIG = {
   // Core settings
   settings: {
     // Timing settings
@@ -198,50 +193,36 @@ const SLIDER_CONFIG = {
     },
   },
 };
-const currentSlideIndex: number = 0;
-const isTransitioning: boolean = false;
-let shaderMaterial: THREE.ShaderMaterial, renderer: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.Camera;
-const slideTextures: THREE.Texture[] = [];
-const texturesLoaded: boolean = false;
-const autoSlideTimer: number | null = null;
-const progressAnimation: number | null = null;
-const sliderEnabled: boolean = false;
-const pane: Pane | null = null;
-const isApplyingPreset: boolean = false;
-// UI elements
-const effectFolders = {};
-const currentEffectFolder = null;
-const SLIDE_DURATION = () => SLIDER_CONFIG.settings.autoSlideSpeed;
-const PROGRESS_UPDATE_INTERVAL = 50;
-const TRANSITION_DURATION = () => SLIDER_CONFIG.settings.transitionDuration;
-const slides = [
+
+import img1_1 from '@works/work-2/2.jpg';
+import img2_1 from '@works/work-5/1.jpg';
+import img3_1 from '@works/work-6/2.jpg';
+import img4_1 from '@works/work-7/2.jpg';
+import img5_1 from '@works/work-8/1.jpg';
+import img6_1 from '@works/work-9/3.jpg';
+export const slides = [
   {
     title: 'Ethereal Glow',
-    media: 'https://assets.codepen.io/7558/orange-portrait-001.jpg',
+    media: img1_1.src,
   },
   {
     title: 'Rose Mirage',
-    media: 'https://assets.codepen.io/7558/orange-portrait-002.jpg',
+    media: img2_1.src,
   },
   {
     title: 'Velvet Mystique',
-    media: 'https://assets.codepen.io/7558/orange-portrait-003.jpg',
+    media: img3_1.src,
   },
   {
     title: 'Golden Hour',
-    media: 'https://assets.codepen.io/7558/orange-portrait-004.jpg',
+    media: img4_1.src,
   },
   {
     title: 'Midnight Dreams',
-    media: 'https://assets.codepen.io/7558/orange-portrait-005.jpg',
+    media: img5_1.src,
   },
   {
     title: 'Silver Light',
-    media: 'https://assets.codepen.io/7558/orange-portrait-006.jpg',
+    media: img6_1.src,
   },
 ];
-// Touch support variables
-const touchStartX = 0;
-const touchEndX = 0;
-
-export default function HomeSliderR3F() {}

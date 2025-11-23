@@ -1,4 +1,4 @@
-:root {
+/* :root {
   --font-mono: 'PPSupplyMono', monospace;
   --font-sans: 'PP Neue Montreal', sans-serif;
   --color-bg: #000;
@@ -24,7 +24,6 @@
   height: 100%;
 }
 
-/* Current slide number at middle left - UPDATED: 12px uppercase */
 .slide-number {
   position: absolute;
   top: 50%;
@@ -39,7 +38,6 @@
   text-transform: uppercase;
 }
 
-/* Total slides at middle right - UPDATED: 12px uppercase */
 .slide-total {
   position: absolute;
   top: 50%;
@@ -119,31 +117,6 @@
   z-index: 3;
 }
 
-/* Tweakpane Styling */
-.tp-dfwv {
-  position: fixed !important;
-  top: 20px !important;
-  right: 20px !important;
-  z-index: 1000 !important;
-  max-width: 320px !important;
-  background: rgba(0, 0, 0, 0.9) !important;
-  backdrop-filter: blur(20px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  border-radius: 8px !important;
-}
-
-.tp-dfwv .tp-btnv_b {
-  background: rgba(255, 255, 255, 0.1) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  color: #ffffff !important;
-  font-family: var(--font-mono) !important;
-  border-radius: 4px !important;
-}
-
-.tp-dfwv .tp-btnv_b:hover {
-  background: rgba(255, 255, 255, 0.2) !important;
-}
-
 @media (max-width: 600px) {
   .slides-navigation {
     bottom: var(--spacing-sm);
@@ -167,15 +140,8 @@
   .slide-total {
     right: var(--spacing-sm);
   }
-
-  .tp-dfwv {
-    top: 10px !important;
-    right: 10px !important;
-    max-width: 280px !important;
-  }
 }
 
-/* Preloader styles */
 .slider-wrapper {
   opacity: 0;
   transition: opacity 1.5s ease-in;
@@ -185,4 +151,4 @@
 .slider-wrapper.loaded {
   opacity: 1;
   pointer-events: auto;
-}
+} */
