@@ -1,12 +1,11 @@
-'use client';
-import { useParams } from 'next/navigation';
 import { worksData } from '../data';
+import { getImagesWithBlur } from '@/lib/plaiceholder';
 import WorkSwiper from './WorkSwiper';
 
-export default function WorkPage() {
-  const params = useParams();
-  const workId = parseInt(params.id as string);
-  const work = worksData.find(w => w.id === workId);
+export default async function WorkPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const workId = parseInt(id);
+  const work = worksData.find((w) => w.id === workId);
 
   if (!work) {
     return (
@@ -16,9 +15,11 @@ export default function WorkPage() {
     );
   }
 
+  const imagesWithBlur = await getImagesWithBlur(work.images);
+
   return (
     <div className="container h-[calc(100svh-8rem)] pt-8">
-      <WorkSwiper images={work.images} workId={workId} />
+      <WorkSwiper images={imagesWithBlur} workId={workId} />
     </div>
   );
 }

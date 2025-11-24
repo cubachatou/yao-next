@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "generate:works": "node scripts/generate-work-imports.js"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
@@ -14,8 +15,9 @@
     "@react-three/fiber": "^9.4.0",
     "@types/three": "^0.181.0",
     "gsap": "^3.13.0",
-    "next": "16.0.3",
+    "next": "^16.0.4",
     "photoswipe": "^5.4.4",
+    "plaiceholder": "^3.0.0",
     "prettier": "^3.6.2",
     "react": "19.2.0",
     "react-dom": "19.2.0",

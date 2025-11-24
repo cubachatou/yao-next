@@ -106,6 +106,8 @@ export default function WorkSwiper({ images, workId }: WorkSwiperProps) {
                 alt={`Work ${workId} - Image ${index + 1}`}
                 className="h-full w-auto object-contain max-w-screen"
                 priority={index === 0}
+                placeholder='blur'
+                blurDataURL={image.blurDataURL}
               />
             </Link>
 
@@ -114,7 +116,7 @@ export default function WorkSwiper({ images, workId }: WorkSwiperProps) {
         ))}
       </Swiper>
 
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center min-w-0">
         <Swiper
           onSwiper={setThumbsSwiper}
           modules={[FreeMode, Thumbs]}
@@ -136,6 +138,8 @@ export default function WorkSwiper({ images, workId }: WorkSwiperProps) {
                 height={60}
                 alt={`Work ${workId} - Thumbnail ${index + 1}`}
                 className="size-full object-cover"
+                placeholder='blur'
+                blurDataURL={image.blurDataURL}
               />
             </SwiperSlide>
           ))}

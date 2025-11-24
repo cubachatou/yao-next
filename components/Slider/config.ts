@@ -194,12 +194,12 @@ export const SLIDER_CONFIG = {
   },
 };
 
-import img1_1 from '@works/work-2/2.jpg';
-import img2_1 from '@works/work-5/1.jpg';
-import img3_1 from '@works/work-7/2.jpg';
-import img4_1 from '@works/work-8/1.jpg';
-import img5_1 from '@works/work-9/1.jpg';
-import img6_1 from '@works/work-1/6.jpg';
+import img1_1 from '@works/work-2/1.jpg';
+import img2_1 from '@works/work-11/1.jpg';
+import img3_1 from '@works/work-12/1.jpeg';
+import img4_1 from '@works/work-7/5.jpg';
+import img5_1 from '@works/work-5/1.jpg';
+// import img6_1 from '@works/work-1/6.jpg';
 export const slides = [
   {
     title: 'Ethereal Glow',
@@ -209,12 +209,12 @@ export const slides = [
   {
     title: 'Rose Mirage',
     media: img2_1.src,
-    objectPosition: { y: 0.7 },
+    objectPosition: { y: 0.55 },
   },
   {
     title: 'Velvet Mystique',
     media: img3_1.src,
-    objectPosition: { y: 0.475 },
+    objectPosition: { y: 0.55 },
   },
   {
     title: 'Golden Hour',
@@ -226,9 +226,9 @@ export const slides = [
     media: img5_1.src,
     objectPosition: { y: 0.8 },
   },
-  {
-    title: 'Silver Light',
-    media: img6_1.src,
-    objectPosition: { y: 0.75 },
-  },
+  // {
+  //   title: 'Silver Light',
+  //   media: img6_1.src,
+  //   objectPosition: { y: 0.75 },
+  // },
 ];
