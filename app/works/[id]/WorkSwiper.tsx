@@ -13,6 +13,7 @@ import 'swiper/css/effect-fade';
 import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
+import Link from 'next/link';
 
 interface WorkSwiperProps {
   images: StaticImageData[];
@@ -93,7 +94,7 @@ export default function WorkSwiper({ images, workId }: WorkSwiperProps) {
           <SwiperSlide key={index} className="flex! items-center justify-center">
             <button data-swipe-left className="grow h-full"></button>
 
-            <a
+            <Link
               href={image.src}
               data-pswp-width={image.width}
               data-pswp-height={image.height}
@@ -106,7 +107,7 @@ export default function WorkSwiper({ images, workId }: WorkSwiperProps) {
                 className="h-full w-auto object-contain max-w-screen"
                 priority={index === 0}
               />
-            </a>
+            </Link>
 
             <button data-swipe-right className="grow h-full"></button>
           </SwiperSlide>

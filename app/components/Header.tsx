@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Logo from '@/public/svg/logo.svg';
 
+import TransitionLink from './TransitionLink';
+
 export default function Header() {
   const pathname = usePathname();
   const isHome = pathname === '/';
@@ -13,9 +15,9 @@ export default function Header() {
   const renderCenter = () => {
     if (isHome) {
       return (<></>
-        // <Link href="/" className="inline-flex w-[clamp(5rem,-6.429rem+17.857vw,15rem)] h-auto">
+        // <TransitionLink href="/" className="inline-flex w-[clamp(5rem,-6.429rem+17.857vw,15rem)] h-auto">
         //   <Logo />
-        // </Link>
+        // </TransitionLink>
       );
     }
 
@@ -23,9 +25,9 @@ export default function Header() {
       return isWorks ? (
         <span className="menu-item-active cursor-default">Works</span>
       ) : (
-        <Link href="/works" className="menu-item-active">
+        <TransitionLink href="/works" className="menu-item-active">
           Works
-        </Link>
+        </TransitionLink>
       );
     }
 
@@ -40,12 +42,12 @@ export default function Header() {
     <header className={`flex items-center px-8 py-5 relative z-10 ${isHome ? 'text-white' : 'text-black'}`}>
       <nav className="w-full font-medium uppercase">
         <ul className="flex items-start justify-between gap-8">
-          <li>{isHome ? <Link href="/works">Works</Link> : <Link href="/">Home</Link>}</li>
+          <li>{isHome ? <TransitionLink href="/works">Works</TransitionLink> : <TransitionLink href="/">Home</TransitionLink>}</li>
 
           <li>{renderCenter()}</li>
 
           <li>
-            {isHome || isWorks || isWorkDetail ? <Link href="/about">About</Link> : <Link href="/works">Works</Link>}
+            {isHome || isWorks || isWorkDetail ? <TransitionLink href="/about">About</TransitionLink> : <TransitionLink href="/works">Works</TransitionLink>}
           </li>
         </ul>
       </nav>
