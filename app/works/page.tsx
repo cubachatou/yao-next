@@ -19,7 +19,7 @@ export default function WorksPage() {
   return (
     <main className="works">
       <div className="container">
-        <ul className="grid 2xl:grid-cols-5 xl:grid-cols-4 grid-cols-3 2xl:gap-8 xl:gap-4 gap-2">
+        <ul className="grid 2xl:grid-cols-5 xl:grid-cols-4 grid-cols-3 2xl:gap-8 xl:gap-4 gap-2 pt-8">
           {works.map((img, index) => (
             <li key={index} className="group">
               <TransitionLink href={`/works/${index + 1}`}>
