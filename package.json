@@ -17,7 +17,6 @@
     "gsap": "^3.13.0",
     "next": "^16.0.4",
     "photoswipe": "^5.4.4",
-    "plaiceholder": "^3.0.0",
     "prettier": "^3.6.2",
     "react": "19.2.0",
     "react-dom": "19.2.0",

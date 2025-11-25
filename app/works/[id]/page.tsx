@@ -1,5 +1,4 @@
 import { worksData } from '../data';
-import { getImagesWithBlur } from '@/lib/plaiceholder';
 import WorkSwiper from './WorkSwiper';
 
 export default async function WorkPage({ params }: { params: Promise<{ id: string }> }) {
@@ -15,11 +14,11 @@ export default async function WorkPage({ params }: { params: Promise<{ id: strin
     );
   }
 
-  const imagesWithBlur = await getImagesWithBlur(work.images);
-
+  const images = work.images.map(img => img.src);
+  
   return (
     <div className="container h-[calc(100svh-8rem)] pt-8">
-      <WorkSwiper images={imagesWithBlur} workId={workId} />
+      <WorkSwiper images={images} workId={workId} />
     </div>
   );
 }

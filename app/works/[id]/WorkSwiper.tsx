@@ -107,7 +107,6 @@ export default function WorkSwiper({ images, workId }: WorkSwiperProps) {
                 className="h-full w-auto object-contain max-w-screen"
                 priority={index === 0}
                 placeholder='blur'
-                blurDataURL={image.blurDataURL}
               />
             </Link>
 
@@ -139,7 +138,6 @@ export default function WorkSwiper({ images, workId }: WorkSwiperProps) {
                 alt={`Work ${workId} - Thumbnail ${index + 1}`}
                 className="size-full object-cover"
                 placeholder='blur'
-                blurDataURL={image.blurDataURL}
               />
             </SwiperSlide>
           ))}

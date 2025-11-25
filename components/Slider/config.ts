@@ -214,7 +214,7 @@ export const slides = [
   {
     title: 'Velvet Mystique',
     media: img3_1.src,
-    objectPosition: { y: 0.55 },
+    objectPosition: { y: 0.7 },
   },
   {
     title: 'Golden Hour',

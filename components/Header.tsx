@@ -23,7 +23,9 @@ export default function Header() {
             {isHome ? (
               <Logo className="inline-flex w-[clamp(5rem,-6.429rem+17.857vw,15rem)] h-auto" />
             ) : (
-              <TransitionLink href="/" className={isHome ? 'menu-item-active' : ''}>Home</TransitionLink>
+              <TransitionLink href="/">
+                <Logo className="inline-flex w-[clamp(5rem,-6.429rem+17.857vw,15rem)] h-auto" />
+              </TransitionLink>
             )}
           </li>
 
