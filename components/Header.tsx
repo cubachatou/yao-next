@@ -12,7 +12,7 @@ export default function Header() {
   const isAbout = pathname === '/about';
 
   return (
-    <header className={`flex items-center px-8 py-5 relative z-10 ${isHome ? 'text-white' : 'text-black'}`}>
+    <header className={`flex items-center px-8 py-5 z-10 ${isHome ? 'text-white fixed w-full' : 'text-black relative'}`}>
       <nav className="w-full font-medium uppercase">
         <ul className="flex items-start justify-between gap-8">
           <li>

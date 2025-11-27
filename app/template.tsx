@@ -39,7 +39,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <div ref={containerRef}>
+    <div ref={containerRef} className='relative'>
       <div
         ref={overlayRef}
         id="transition-overlay"

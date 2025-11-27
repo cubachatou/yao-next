@@ -17,7 +17,7 @@ export default async function WorkPage({ params }: { params: Promise<{ id: strin
   const images = work.images.map(img => img.src);
   
   return (
-    <div className="container h-[calc(100svh-8rem)] pt-8">
+    <div className="container absolute inset-0 pt-8">
       <WorkSwiper images={images} workId={workId} />
     </div>
   );
