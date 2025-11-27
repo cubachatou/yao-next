@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 import { EffectFade, FreeMode, Navigation, Thumbs } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
-import type { StaticImageData } from 'next/image';
 import PhotoSwipeLightbox from 'photoswipe/lightbox';
 import PhotoSwipe from 'photoswipe';
 import 'swiper/css';
@@ -14,13 +13,14 @@ import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 import Link from 'next/link';
+import type { SanityImage } from '@/types';
 
 interface WorkSwiperProps {
-  images: StaticImageData[];
-  workId: number;
+  images: SanityImage[];
+  workTitle: string;
 }
 
-export default function WorkSwiper({ images, workId }: WorkSwiperProps) {
+export default function WorkSwiper({ images, workTitle }: WorkSwiperProps) {
   const mainSwiperRef = useRef<SwiperRef | null>(null);
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
 
@@ -95,18 +95,19 @@ export default function WorkSwiper({ images, workId }: WorkSwiperProps) {
             <button data-swipe-left className="grow h-full"></button>
 
             <Link
-              href={image.src}
+              href={image.url}
               data-pswp-width={image.width}
               data-pswp-height={image.height}
               target="_blank"
               className="shrink-0 h-full flex items-center justify-center"
             >
               <Image
-                src={image}
-                alt={`Work ${workId} - Image ${index + 1}`}
+                src={image.url}
+                width={image.width}
+                height={image.height}
+                alt={image.alt || `${workTitle} - Image ${index + 1}`}
                 className="h-full w-auto object-contain max-w-screen"
                 priority={index === 0}
-                placeholder='blur'
               />
             </Link>
 
@@ -132,12 +133,11 @@ export default function WorkSwiper({ images, workId }: WorkSwiperProps) {
               onMouseOver={() => mainSwiperRef.current?.swiper.slideTo(index)}
             >
               <Image
-                src={image}
+                src={image.url}
                 width={60}
                 height={60}
-                alt={`Work ${workId} - Thumbnail ${index + 1}`}
+                alt={image.alt || `${workTitle} - Thumbnail ${index + 1}`}
                 className="size-full object-cover"
-                placeholder='blur'
               />
             </SwiperSlide>
           ))}
